@@ -28,7 +28,6 @@ public abstract class Tweet implements Tweetable {
         this.date = date;
         moodList.add(HappyMood.class);
         moodList.add(SadMood.class);
-        moodList.add(NeutralMood.class);
     }
 
     public String getMessage(){
