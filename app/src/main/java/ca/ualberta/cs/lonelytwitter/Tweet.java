@@ -1,5 +1,6 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,17 +10,25 @@ import java.util.Date;
 public abstract class Tweet implements Tweetable {
     private String message;
     private Date date;
+    public ArrayList<Class<?>> moodList = new ArrayList<Class<?>>();
+    /** https://stackoverflow.com/questions/5613311/list-of-classes-in-java */
 
     Tweet(String message) {
 
         this.message = message;
         date = new Date();
         //message = message;
+        moodList.add(HappyMood.class);
+        moodList.add(SadMood.class);
+        moodList.add(NeutralMood.class);
     }
 
     Tweet(String message, Date date){
         this.message = message;
         this.date = date;
+        moodList.add(HappyMood.class);
+        moodList.add(SadMood.class);
+        moodList.add(NeutralMood.class);
     }
 
     public String getMessage(){
