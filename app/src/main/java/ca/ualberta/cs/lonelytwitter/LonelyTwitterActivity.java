@@ -1,3 +1,16 @@
+/*
+ * LonelyTwitterActivity
+ *
+ * Version 1.5
+ *
+ * January 30, 2018
+ *
+ * Copyright © 2018 Team X, CMPUT301, University of Alberta - All rights Reserved.
+ * You may use, distribute, or modify this code under terms and conditions of the Code
+ * of Student Behaviour at University of Alberta.
+ * You can find a copy of the license in this project. Otherwise contact mimacart@ualberta.ca
+ */
+
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.BufferedReader;
@@ -26,6 +39,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ *  The main class for Lonely Twitter
+ *
+ * 	@author Malcolm MacArthur
+ *  @version 1.1
+ *  @see ImportantTweet
+ *  @see NormalTweet
+ */
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "tweets.sav";
@@ -35,7 +56,11 @@ public class LonelyTwitterActivity extends Activity {
 	private ArrayList<Tweet> tweetList;
 	private ArrayAdapter<Tweet> adapter;
 
-	/** Called when the activity is first created. */
+	/**
+	 * Called after onCreate, it fills the activity and set functionality to buttons
+	 *
+	 * @param savedInstanceState the state from last opening
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +74,11 @@ public class LonelyTwitterActivity extends Activity {
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
+			/**
+			 * sets save functionality
+			 *
+			 * @param v the view
+			 */
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
@@ -65,6 +95,11 @@ public class LonelyTwitterActivity extends Activity {
 
 		clearButton.setOnClickListener(new View.OnClickListener() {
 
+			/**
+			 * sets clear functionality
+			 *
+			 * @param v the view
+			 */
 			public void onClick(View v) {
 				clearFile();
 				saveInFile();
@@ -74,6 +109,9 @@ public class LonelyTwitterActivity extends Activity {
 		});
 	}
 
+	/**
+	 * called when the activity is created
+	 */
 	@Override
 	protected void onStart() {
 
@@ -89,6 +127,11 @@ public class LonelyTwitterActivity extends Activity {
 
 	}
 
+	/**
+	 * Loads the tweet from a file
+	 *
+	 * @throws RuntimeException the file is not found or somethings wrong with IO
+	 */
 	private void loadFromFile() {
 
 		try {
@@ -110,7 +153,12 @@ public class LonelyTwitterActivity extends Activity {
 		}
 
 	}
-	
+
+	/**
+	 * Saves the tweet into a file
+	 *
+	 * @throws RuntimeException the file is not found or somethings wrong with IO
+	 */
 	private void saveInFile() {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
@@ -132,11 +180,17 @@ public class LonelyTwitterActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Clears the tweet list which is in turn be saved into the file
+	 */
 	private void clearFile() {
 		tweetList.clear();
 	}
 
 
+	/**
+	 * called before activity is destroyed
+	 */
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
