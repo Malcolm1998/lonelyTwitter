@@ -59,9 +59,22 @@ public class ElasticsearchTweetController {
             verifySettings();
 
             ArrayList<NormalTweet> tweets = new ArrayList<NormalTweet>();
+            Search search;
 
-            // TODO Build the query
-            Search search = new Search.Builder("").addIndex("testing").addType("tweet").build();
+            if (search_parameters[0].equals("")){
+                search = new Search.Builder("").addIndex("testing").addType("tweet").build();
+            } else {
+                // TODO Build the query
+                String query = "{\n" +
+                        "    \"query\": {\n" +
+                        "        \"query_string\" : {\n" +
+                        "            \"query\" : \"" + search_parameters[0] + "\"\n" +
+                        "        }\n" +
+                        "    }\n" +
+                        "}";
+                search = new Search.Builder(query).addIndex("testing").addType("tweet").build();
+            }
+
             try {
                // TODO get the results of the query
                 SearchResult result = client.execute(search);
@@ -78,7 +91,9 @@ public class ElasticsearchTweetController {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 
-            if (search_parameters[0].equals("")){
+            return tweets;
+
+            /*if (search_parameters[0].equals("")){
                 return tweets;
             }
 
@@ -90,7 +105,7 @@ public class ElasticsearchTweetController {
                 }
             }
 
-            return searchedTweets;
+            return searchedTweets;*/
         }
     }
 
